@@ -13,7 +13,7 @@ func Post(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&product)
 	if err != nil {
 		log.Printf("This element does not exist, we catch an error: %v", err)
-		http.Error(w, http.StatusText(500), 500)
+		http.Error(w, http.StatusText(400), 400)
 	}
 
 	insertProduct, err := models.Insert(product)
@@ -21,5 +21,11 @@ func Post(w http.ResponseWriter, r *http.Request) {
 		log.Printf("This element does not exist, we catch an error: %v", err)
 		http.Error(w, http.StatusText(500), 500)
 	}
-	json.NewEncoder(w).Encode(insertProduct)
+	w.WriteHeader(http.StatusCreated)
+	err = json.NewEncoder(w).Encode(insertProduct)
+	if err != nil {
+		log.Printf("Unxpected error: %v", err)
+		http.Error(w, http.StatusText(500), 500)
+	}
+
 }

@@ -37,6 +37,7 @@ func Put(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to Update thei nformations", 500)
 		return
 	}
+	w.WriteHeader(http.StatusAccepted)
 	err = json.NewEncoder(w).Encode(updateProduct)
 	if err != nil {
 		log.Printf("Unxpected error> %v", err)

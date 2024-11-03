@@ -1,13 +1,9 @@
-[
-api
-]
+[api]
 port = "8000"
 
-[
-database
-]
+[database]
 name = "produtos_db"
 user = "postgres"
 pass = "postgres"
-host = "db"  # Este será o nome do serviço no docker-compose
+host = "db" 
 port = "5432"
